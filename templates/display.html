@@ -1,0 +1,122 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Renkli Fotoğraflar</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        /* Arka plan seçeneği 1: Gradient geçiş (açık mor-pembe) */
+        background: linear-gradient(135deg, #bfa1f9 0%, #fda3ce 100%);
+      }
+      h1 {
+        font-size: 36px;
+        color: #9d219d; /* Mor renk */
+        text-align: center;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+      }
+      h2 {
+        font-size: 16px;
+        color: #444;
+        margin-bottom: 8px;
+      }
+      .photos-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* Üst hizalama için */
+        flex-wrap: nowrap; /* Yan yana zorla */
+        gap: 10px;
+        margin-bottom: 30px;
+        width: 100%;
+        overflow-x: auto; /* Ekran küçükse yatay kaydırma */
+      }
+      .image-container {
+        margin: 5px;
+        text-align: center;
+        width: 250px; /* Daha küçük konteynerlar */
+        background-color: white;
+        padding: 12px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: transform 0.3s ease;
+        flex-shrink: 0; /* Sıkışmalarını önle */
+      }
+      .image-container:hover {
+        transform: translateY(-5px);
+      }
+      img {
+        max-width: 100%;
+        height: 300px; /* Daha küçük resim yüksekliği */
+        object-fit: cover;
+        border-radius: 6px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      }
+      .upload-button {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 15px 35px;
+        background-color: #FF69B4; /* Pembe renk */
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 20px;
+        transition: all 0.3s;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+      .upload-button:hover {
+        background-color: #FF1493;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      }
+      .container {
+        max-width: 1000px;
+        margin: 20px auto;
+        padding: 25px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      }
+      /* Footer ekleme */
+      .footer {
+        margin-top: 30px;
+        font-size: 14px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Orijinal ve Renkli Fotoğraflar</h1>
+      
+      <div class="photos-container">
+        <div class="image-container">
+          <h2>Original Image</h2>
+          <img src="{{ url_for('serve_file', filename=original_image) }}" alt="Original Image">
+        </div>
+        
+        <div class="image-container">
+          <h2>Colorized Image (ECCV 16)</h2>
+          <img src="{{ url_for('serve_file', filename=colorized_images[0]) }}" alt="ECCV16 Image">
+        </div>
+        
+        <div class="image-container">
+          <h2>Colorized Image (SIGGRAPH 17)</h2>
+          <img src="{{ url_for('serve_file', filename=colorized_images[1]) }}" alt="SIGGRAPH17 Image">
+        </div>
+      </div>
+      
+      <div>
+        <a href="{{ url_for('upload_file') }}" class="upload-button">Upload Another Image</a>
+      </div>
+      
+      <div class="footer">
+        Colorization App - Created by Büşra Zümra and QodoAI
+      </div>
+    </div>
+  </body>
+</html>

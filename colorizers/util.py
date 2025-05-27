@@ -7,9 +7,12 @@ import torch.nn.functional as F
 from IPython import embed
 
 def load_img(img_path):
-	out_np = np.asarray(Image.open(img_path))
-	if(out_np.ndim==2):
-		out_np = np.tile(out_np[:,:,None],3)
+	with Image.open(img_path) as img:
+		if img.mode == 'RGBA':
+			img = img.convert('RGB')  # RGBA to RGB
+		out_np = np.asarray(img)
+		if(out_np.ndim==2):
+			out_np = np.tile(out_np[:,:,None],3)
 	return out_np
 
 def resize_img(img, HW=(256,256), resample=3):
